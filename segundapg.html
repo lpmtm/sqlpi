@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do aluno</title>
+    <link rel="website icon" type="png" href="https://media-public.canva.com/ZlHMQ/MADhH6ZlHMQ/3/tl.png">
+    <link rel="stylesheet" href="stylestest.css">
+</head>
+
+<body class="header-dois">
+    <header id="header-dois">
+        <h1>Página do aluno</h1>
+    </header>
+
+    <div class="perfil-container">
+        <li>Nome:</li>
+        <li>Curso:</li>
+        <li>Matrícula:</li>
+        <li>Semestre:</li>
+        <li>Telefone:</li>
+        <li>Email:</li>
+    </div>
+
+    <div class="sidebar">
+        <h2>Olá, </h2>
+        <nav>
+            <a href="boletim.html">Boletim</a>
+            <a href="frequencia.html">Frequência</a>
+            <a href="gradehoraria.html">Grade</a>
+        </nav>
+         <button class="buttonsp" onclick="logout()">Sair</button>
+    </div>
+
+
+    <!-- JavaScript para buscar e mostrar o email e senha -->
+ <script>
+    // Verifica se tem token no localStorage
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Você precisa estar logado!');
+      window.location.href = 'login.html';
+    }
+
+    // Função de logout
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'index.html';
+    }
+  </script>
+
+
+</body>
+
+</html>
