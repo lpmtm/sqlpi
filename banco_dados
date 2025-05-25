@@ -1,73 +1,43 @@
-CREATE TABLE dadosgerais.aluno (
-    id_matricula INTEGER PRIMARY KEY,
-    nome VARCHAR(100),
-	curso VARCHAR(100)
+CREATE TABLE users (
+    id SERIAL NOT NULL PRIMARY KEY,
+    nome VARCHAR(200) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    password VARCHAR(255) NOT NULL, 
+    role VARCHAR(200),
+   
+    matricula VARCHAR(200) UNIQUE,
+    curso VARCHAR(200),
+    cargaHoraria INTEGER,
+    semestre VARCHAR(100),
+    createdAt TIMESTAMP DEFAULT NOW(),
+    updatedAt TIMESTAMP
 );
 
-CREATE TABLE dadosgerais.habilidades (
-    matricula INTEGER REFERENCES dadosgerais.aluno(id_matricula),
-    id_habilidades INTEGER PRIMARY KEY,
-	nome_habilidade VARCHAR(100)
+
+CREATE TABLE courses (
+    
+    matricula VARCHAR(200) REFERENCES users(matricula),
+    id SERIAL PRIMARY KEY,
+    slug VARCHAR(200),
+    createdAt TIMESTAMP DEFAULT NOW(),
+    updatedAt TIMESTAMP
 );
 
 
-CREATE TABLE dadosgerais.projetos (
-    matricula INTEGER REFERENCES dadosgerais.aluno(id_matricula),
-    id_projeto INTEGER PRIMARY KEY,
-    titulo VARCHAR(100),
-    descricao TEXT,
-    data_realizacao DATE
+CREATE TABLE boletims (
+    id SERIAL PRIMARY KEY,
+    materia VARCHAR(200),
+    semestre VARCHAR(100),
+    nota VARCHAR(100),
+	slug VARCHAR(200),
+    body TEXT,
+    UserID INTEGER REFERENCES users(id),
+    createdAt TIMESTAMP DEFAULT NOW(),
+    updatedAt TIMESTAMP
 );
 
-CREATE TABLE dadosgerais.certificacoes (
-    matricula INTEGER REFERENCES dadosgerais.aluno(id_matricula),
-    id_cursos INTEGER PRIMARY KEY,
-    nome_curso VARCHAR(100),
-    instituicao_curso VARCHAR(100),
-    data_conclusao DATE
-);
+DROP TABLE IF EXISTS boletins;
 
-CREATE TABLE dadosgerais.certificados (
-    matricula INTEGER REFERENCES dadosgerais.aluno(id_matricula),
-    id_cursos INTEGER PRIMARY KEY,
-    nome_curso VARCHAR(100),
-    instituicao_curso VARCHAR(100),
-    data_conclusao DATE
-);
 
-CREATE TABLE dadosgerais.disciplinas (
-    id_disciplina INTEGER PRIMARY KEY,
-    nome_disciplina VARCHAR(100)
-);
 
-CREATE TABLE dadosgerais.desempenho (
-	matricula INTEGER REFERENCES dadosgerais.aluno(id_matricula),
-    id_disciplina INTEGER REFERENCES dadosgerais.disciplinas(id_disciplina),
-   	id_desempenho INTEGER PRIMARY KEY,
-	semestre VARCHAR(25),
-	nota FLOAT,
-	frequencia FLOAT,
-	participacao TEXT
-);
 
-CREATE TABLE dadosgerais.curso (
-    id_curso INTEGER PRIMARY KEY,
-    nome_curso VARCHAR(100),
-	descricao_curso TEXT
-);
-
-CREATE TABLE dadosgerais.professor (
-    id_professor INTEGER PRIMARY KEY,
-    nome_professor VARCHAR(100),
-	email_professor VARCHAR(100),
-	telefone_professor VARCHAR(14)
-);
-
-CREATE TABLE dadosgerais.turma (
-	id_professor INTEGER REFERENCES dadosgerais.professor(id_professor),
-    id_disciplina INTEGER REFERENCES dadosgerais.disciplinas(id_disciplina),
-	id_curso INTEGER REFERENCES dadosgerais.curso(id_curso),
-   	id_turma INTEGER,
-	ano_turma INTEGER,
-	semestre_turma INTEGER
-);
